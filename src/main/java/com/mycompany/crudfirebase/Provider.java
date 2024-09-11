@@ -77,16 +77,14 @@ public class Provider {
         return null;
     }
     
-    
     public static void carregarTablePersona(JTable table) {
         DefaultTableModel model = new DefaultTableModel();
-        model.addColumn("Título");
-        model.addColumn("Autor");
-        model.addColumn("ID");
-        model.addColumn("Editora");
+        model.addColumn("Nome");
+        model.addColumn("Sobrenome");
+        model.addColumn("CPF");
+        model.addColumn("Email");
         
-        
-
+       
         try {
             CollectionReference personas = db.collection("Persona");
             ApiFuture<QuerySnapshot> querySnap = personas.get();

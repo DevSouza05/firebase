@@ -1,4 +1,3 @@
-
 package com.mycompany.crudfirebase;
 
 import java.util.Map;
@@ -85,13 +84,13 @@ public class crudIHM extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(tblPersona);
 
-        jLabel1.setText("Titulo");
+        jLabel1.setText("Nome");
 
-        jLabel2.setText("Autor");
+        jLabel2.setText("Sobrenome");
 
-        jLabel3.setText("ID");
+        jLabel3.setText("CPF");
 
-        jLabel4.setText("Editora");
+        jLabel4.setText("Email");
 
         txtSobrenome.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
 
@@ -136,16 +135,15 @@ public class crudIHM extends javax.swing.JFrame {
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                                 .addContainerGap()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING))))
+                                    .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING))))
                         .addGap(64, 64, 64)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, 419, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(txtCPF, javax.swing.GroupLayout.PREFERRED_SIZE, 419, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(txtSobrenome, javax.swing.GroupLayout.PREFERRED_SIZE, 419, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(TxtEmail, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 419, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, 419, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtCPF, javax.swing.GroupLayout.PREFERRED_SIZE, 419, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtSobrenome, javax.swing.GroupLayout.PREFERRED_SIZE, 419, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(TxtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 419, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(41, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -161,15 +159,15 @@ public class crudIHM extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(txtSobrenome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(19, 19, 19)
+                .addGap(24, 24, 24)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(TxtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(15, 15, 15)
+                    .addComponent(jLabel3)
+                    .addComponent(txtCPF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtCPF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3))
-                .addGap(45, 45, 45)
+                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(TxtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(42, 42, 42)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnQuery)
                     .addComponent(btnClear)
@@ -224,12 +222,14 @@ public class crudIHM extends javax.swing.JFrame {
             return;
         }
 
+        if (!isValidCPF(cpf)) {
+            JOptionPane.showMessageDialog(null, "CPF inválido. Digite uma CPF válido");
+        }
+
         try {
-            // Consultar o documento com base no CPF
             Map<String, Object> dados = Provider.getPersona("Persona", cpf);
 
             if (dados != null) {
-                
                 txtNome.setText((String) dados.get("Nome"));
                 txtSobrenome.setText((String) dados.get("Sobrenome"));
                 TxtEmail.setText((String) dados.get("Email"));
@@ -241,33 +241,9 @@ public class crudIHM extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Erro ao consultar!");
         }
     }//GEN-LAST:event_btnQueryActionPerformed
-  
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(crudIHM.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(crudIHM.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(crudIHM.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(crudIHM.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
 
-        /* Create and display the form */
+    public static void main(String args[]) {
+
         java.awt.EventQueue.invokeLater(() -> {
             new crudIHM().setVisible(true);
         });
@@ -294,12 +270,27 @@ public class crudIHM extends javax.swing.JFrame {
 
     private void Insert() {
         String cpf = txtCPF.getText().trim();
+        String nome = txtNome.getText().trim();
+        String sobrenome = txtSobrenome.getText().trim();
+        String email = TxtEmail.getText().trim();
 
-        if (cpf.isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Digite o CPF.");
+       
+        if (nome.isEmpty() || sobrenome.isEmpty() || cpf.isEmpty() || email.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Todos os campos devem ser preenchidos.");
+            return;
+        }
+        
+         if (!isValidCPF(cpf)) {
+            JOptionPane.showMessageDialog(null, "CPF inválido. Digite um CPF válido.");
             return;
         }
 
+          if (!isValidEmail(email)) {
+            JOptionPane.showMessageDialog(null, "Email inválido. Digite um email válido.");
+            return;
+        }
+         
+         
         try {
             Map<String, Object> dados = new HashMap<>();
             dados.put("Nome", txtNome.getText());
@@ -319,42 +310,63 @@ public class crudIHM extends javax.swing.JFrame {
     }
 
     private void Update() {
-    String cpf = txtCPF.getText().trim();
+        String nome = txtNome.getText().trim();
+        String sobrenome = txtSobrenome.getText().trim();
+        String cpf = txtCPF.getText().trim();
+        String email = TxtEmail.getText().trim();
 
-    if (cpf.isEmpty()) {
-        JOptionPane.showMessageDialog(null, "Digite o CPF para atualizar.");
-        return;
-    }
+        if (cpf.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Digite o CPF para atualizar.");
+            return;
+        }
 
-    try {
-  
-        Map<String, Object> dados = new HashMap<>();
-        dados.put("Nome", txtNome.getText());
-        dados.put("Sobrenome", txtSobrenome.getText());
-        dados.put("CPF", cpf);
-        dados.put("Email", TxtEmail.getText());
+        if (nome.isEmpty() || sobrenome.isEmpty() || email.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Todos os campos devem ser preenchidos.");
+            return;
+        }
 
-        // Atualizar o documento no Firestore
-        boolean success = Provider.updatePersona("Persona", cpf, dados);
-        
-        if (success) {
-            JOptionPane.showMessageDialog(null, "Êxito ao atualizar!");
-            clearForm(); 
-            Provider.carregarTablePersona(tblPersona); // Atualiza a tabela
-        } else {
+        if (!isValidCPF(cpf)) {
+            JOptionPane.showMessageDialog(null, "CPF inválido. Digite um CPF válido.");
+            return;
+        }
+
+        if (!isValidEmail(email)) {
+            JOptionPane.showMessageDialog(null, "Email inválido. Digite um email válido.");
+            return;
+        }
+
+        try {
+            Map<String, Object> dados = new HashMap<>();
+            dados.put("Nome", nome);
+            dados.put("Sobrenome", sobrenome);
+            dados.put("CPF", cpf);
+            dados.put("Email", email);
+
+            boolean success = Provider.updatePersona("Persona", cpf, dados);
+
+            if (success) {
+                JOptionPane.showMessageDialog(null, "Êxito ao atualizar!");
+                clearForm(); 
+                Provider.carregarTablePersona(tblPersona); // Atualiza a tabela
+            } else {
+                JOptionPane.showMessageDialog(null, "Erro ao atualizar!");
+            }
+        } catch (Exception e) {
+            System.err.println("Erro ao atualizar documento: " + e.getMessage());
             JOptionPane.showMessageDialog(null, "Erro ao atualizar!");
         }
-    } catch (Exception e) {
-        System.err.println("Erro ao atualizar documento: " + e.getMessage());
-        JOptionPane.showMessageDialog(null, "Erro ao atualizar!");
     }
-}
 
-    private void Delete() {
+ private void Delete() {
         String cpf = txtCPF.getText().trim();
 
         if (cpf.isEmpty()) {
             JOptionPane.showMessageDialog(null, "Digite o CPF para excluir.");
+            return;
+        }
+
+        if (!isValidCPF(cpf)) {
+            JOptionPane.showMessageDialog(null, "CPF inválido. Digite um CPF válido.");
             return;
         }
 
@@ -379,6 +391,16 @@ public class crudIHM extends javax.swing.JFrame {
         txtSobrenome.setText("");
         txtCPF.setText("");
         TxtEmail.setText("");
+    }
+
+    private boolean isValidCPF(String cpf) {
+
+        return cpf.matches("\\d{11}");
+    }
+
+    private boolean isValidEmail(String email) {
+
+        return email.matches("^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$");
     }
 
 }
